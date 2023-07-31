@@ -23,8 +23,6 @@ jobs:
       image_tag: '${{ vars.DOCKERHUB_USERNAME }}/archlinux:${{ matrix.tag }}'
       latest_tag: '${{ vars.DOCKERHUB_USERNAME }}/archlinux:latest'
     steps:
-      - name: Set up tag envs
-        run: echo 'Set up tag envs'
       - name: Checkout
         uses: actions/checkout@v3
       - name: Set up Docker Buildx
@@ -33,7 +31,7 @@ jobs:
         if: env.is_release == 'true'
         uses: docker/login-action@v2
         with:
-          username: ${{ env.DOCKERHUB_USERNAME }}
+          username: ${{ vars.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
       - name: Build
         run: |
